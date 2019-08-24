@@ -227,5 +227,6 @@ func main() {
 	fmt.Println()
 	fmt.Println("[*] Disk stats: ")
 	fmt.Println("I broke this...ops")
+	fmt.Println("[===============] HEARTBEAT [===============]")
 
 }
