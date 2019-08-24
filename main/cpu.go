@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -25,5 +26,9 @@ func GetCpuStats() (*CPUStats, error) {
 
 	defer file.Close()
 
-	//todo return
+	return getCpuStats(file)
+}
+
+func getCpuStats(out io.Reader) (*CPUStats, error) {
+
 }
