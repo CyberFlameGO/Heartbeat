@@ -6,6 +6,6 @@ Reads from the Linux directory /proc/ for the information.
 
 # Todo
 
-Clean up the code A LOT
-
-Add in reading network stats
+* Add in reading network stats
+* Add in selection of viewing certain stats
+* Make it so that it can every X time (set in config) 
