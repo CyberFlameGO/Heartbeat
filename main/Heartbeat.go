@@ -204,6 +204,8 @@ func getMemoryStats(out io.Reader) (*StatsMemory, error) {
 func main() {
 
 	var cpu = GetCpu()
+	var disk, _ = GetDisk()
+	var mem, _ = GetMemory()
 
 	fmt.Println("[===============] HEARTBEAT [===============]")
 	fmt.Println("[*] CPU Stats: ")
@@ -212,4 +214,12 @@ func main() {
 	fmt.Println("[+] Total: ", cpu.Total)
 	fmt.Println("[+] Idle: ", cpu.Idle)
 	fmt.Println("[+] System", cpu.System)
+	fmt.Println("")
+	fmt.Println("[*] Memory stats: ")
+	fmt.Println("[+] Cached: ", mem.Cached)
+	fmt.Println("[+] Available: ", mem.Available)
+	fmt.Println("[+] Active: ", mem.Active)
+	fmt.Println("[+] Inactive: ", mem.Inactive)
+	fmt.Println("[+] Free: ", mem.Free)
+	fmt.Println("[+] Buffers: ", mem.Buffers)
 }
