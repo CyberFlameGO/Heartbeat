@@ -33,9 +33,9 @@ func main() {
 		fmt.Println("[+] Buffers: ", memory.Buffers)
 		fmt.Println("[+] Total: ", memory.Total)
 		fmt.Println("[+] Used: ", memory.Used)
-		fmt.Println()
+		fmt.Println("")
 		fmt.Println("[*] Disk stats: ")
-		fmt.Println("I broke this...ops")
+		fmt.Println("[X] I broke this...ops")
 		fmt.Println("{==== HEARTBEAT ====}")
 	}
 }
