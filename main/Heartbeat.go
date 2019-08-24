@@ -20,12 +20,12 @@ type cpuStat struct {
 	ptr  *uint64
 }
 
-func GetCpu() *StatsCpu {
+func GetCpu() (*StatsCpu, error) {
 	file, err := os.Open("/proc/stat")
 
 	if err != nil {
 		fmt.Println("Could not read /proc/stat, found error: ", err.Error())
-		return nil
+		return nil, nil
 	}
 
 	defer file.Close()
@@ -203,8 +203,8 @@ func getMemoryStats(out io.Reader) (*StatsMemory, error) {
 
 func main() {
 
-	var cpu = GetCpu()
-	var disk, _ = GetDisk()
+	var cpu, _ = GetCpu()
+	//var disk, _ = GetDisk()
 	var mem, _ = GetMemory()
 
 	fmt.Println("[===============] HEARTBEAT [===============]")
@@ -222,4 +222,10 @@ func main() {
 	fmt.Println("[+] Inactive: ", mem.Inactive)
 	fmt.Println("[+] Free: ", mem.Free)
 	fmt.Println("[+] Buffers: ", mem.Buffers)
+	fmt.Println("[+] Total: ", mem.Total)
+	fmt.Println("[+] Used: ", mem.Used)
+	fmt.Println()
+	fmt.Println("[*] Disk stats: ")
+	fmt.Println("I broke this...ops")
+
 }
