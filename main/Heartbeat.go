@@ -30,7 +30,7 @@ func GetCpu() (*Stats, error) {
 
 	defer file.Close()
 
-	//todo return getting the stats
+	return getCpuStats(file)
 }
 
 func getCpuStats(out io.Reader) (*Stats, error) {
