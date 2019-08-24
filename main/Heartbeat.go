@@ -85,8 +85,17 @@ type StatsDisk struct {
 	ReadsCompleted, WritesCompleted uint64
 }
 
-func GetDisk([]StatsDisk, error) {
+func GetDisk() ([]StatsDisk, error) {
+	file, err := os.Open("/proc/diskstats")
 
+	if err != nil {
+		fmt.Println("Could not read /proc/diskstats, found error: ", err)
+		return nil, err
+	}
+
+	defer file.Close()
+
+	return getDiskStats(file)
 }
 
 func getDiskStats(out io.Reader) ([]StatsDisk, error) {
