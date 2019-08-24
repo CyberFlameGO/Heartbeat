@@ -126,6 +126,8 @@ func getDiskStats(out io.Reader) ([]StatsDisk, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Scan error for /proc/diskstats %s", err)
 	}
+
+	return diskStats, nil
 }
 
 func main() {
