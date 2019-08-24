@@ -190,6 +190,8 @@ func getMemoryStats(out io.Reader) (*Stats, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Scan error for /proc/meminfo %s", err)
 	}
+
+	return &memory, nil
 }
 
 func main() {
