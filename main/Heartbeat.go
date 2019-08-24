@@ -139,6 +139,59 @@ func getDiskStats(out io.Reader) ([]StatsDisk, error) {
 	return diskStats, nil
 }
 
+type StatsMemory struct {
+	Total, Used, Buffers, Cached, Free, Available, Active, Inactive uint64
+	MemAvailableEnabled                                             bool
+}
+
+func GetMemory() (*StatsMemory, error) {
+
+}
+
+func getMemoryStats(out io.Reader) (*Stats, error) {
+	scanner := bufio.NewScanner(out)
+	var memory StatsMemory
+
+	memStats := map[string]*uint64{
+		"MemTotal":     &memory.Total,
+		"MemFree":      &memory.Free,
+		"MemAvailable": &memory.Available,
+		"Buffers":      &memory.Buffers,
+		"Cached":       &memory.Cached,
+		"Active":       &memory.Active,
+		"Inactive":     &memory.Inactive,
+	}
+
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		i := strings.IndexRune(line, ':')
+
+		if i < 0 {
+			continue
+		}
+
+		f := line[:i]
+
+		if ptr := memStats[f]; ptr != nil {
+			val := strings.TrimSpace(strings.TrimRight(line[i+1:], "kb"))
+
+			if v, err := strconv.ParseUint(val, 10, 64); err == nil {
+				*ptr = v * 1024
+			}
+
+			if f == "MemAvailable" {
+				memory.MemAvailableEnabled = true
+			}
+		}
+	}
+	err := scanner.Err()
+
+	if err != nil {
+		return nil, fmt.Errorf("Scan error for /proc/meminfo %s", err)
+	}
+}
+
 func main() {
 
 	var cpu = GetCpu()
