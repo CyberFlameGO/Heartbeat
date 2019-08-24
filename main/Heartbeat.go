@@ -145,10 +145,17 @@ type StatsMemory struct {
 }
 
 func GetMemory() (*StatsMemory, error) {
+	file, err := os.Open("/proc/meminfo")
 
+	if err != nil {
+		return nil, err
+	}
+
+	defer file.Close()
+	return getMemoryStats(file)
 }
 
-func getMemoryStats(out io.Reader) (*Stats, error) {
+func getMemoryStats(out io.Reader) (*StatsMemory, error) {
 	scanner := bufio.NewScanner(out)
 	var memory StatsMemory
 
